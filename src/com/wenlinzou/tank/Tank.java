@@ -39,14 +39,19 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
         g.fillRect(x, y, 50, 50);
+        g.setColor(c);
 
         move();
 
     }
 
     private void move() {
-        if (!moving) {return;}
+        if (!moving) {
+            return;
+        }
         switch (dir) {
             case LEFT:
                 x -= SPEED;

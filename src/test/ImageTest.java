@@ -22,8 +22,12 @@ public class ImageTest {
     @Test
     public void test() {
         try {
-            BufferedImage bufferedImage = ImageIO.read(new File("/Users/liumengqi/Desktop/WechatIMG24.jpeg"));
+            BufferedImage bufferedImage = ImageIO.read(new File("/Users/xxx/Desktop/WechatIMG24.jpeg"));
             assertNotNull(bufferedImage);
+
+            BufferedImage bufferedImage1 = ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            //this.getClass()
+            assertNotNull(bufferedImage1);
         } catch (IOException e) {
             e.printStackTrace();
         }

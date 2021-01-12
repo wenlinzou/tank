@@ -9,7 +9,7 @@ import java.io.IOException;
  * @author wenlinzou
  * @date 2021/1/6
  */
-public class Audio extends Thread{
+public class Audio extends Thread {
 
     byte[] b = new byte[1024 * 1024 * 15];
 
@@ -38,7 +38,6 @@ public class Audio extends Thread{
     }
 
 
-
     private AudioFormat audioFormat = null;
     private SourceDataLine sourceDataLine = null;
     private DataLine.Info dataLine_info = null;
@@ -61,9 +60,9 @@ public class Audio extends Thread{
 
     public void play() {
         try {
-            byte[] b = new byte[1024*5];
+            byte[] b = new byte[1024 * 5];
             int len = 0;
-            sourceDataLine.open(audioFormat, 1024*5);
+            sourceDataLine.open(audioFormat, 1024 * 5);
             sourceDataLine.start();
             //System.out.println(audioInputStream.markSupported());
             audioInputStream.mark(12358946);
@@ -79,7 +78,6 @@ public class Audio extends Thread{
             e.printStackTrace();
         }
     }
-
 
 
     public void close() {

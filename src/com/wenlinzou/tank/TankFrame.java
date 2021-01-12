@@ -20,7 +20,6 @@ public class TankFrame extends Frame {
     List<Bullet> bulletList = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();
-    Explode explode = new Explode(100, 100, this);
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
@@ -118,6 +117,8 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            new Thread(()->new Audio("audio/tank_move.wav").play()).start();
+
             setMainTankDir();
         }
 

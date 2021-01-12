@@ -18,6 +18,8 @@ public class Tank {
 
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
+    Rectangle rectangle = new Rectangle();
+
     private Random random = new Random();
 
     private boolean moving = true;
@@ -32,6 +34,11 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public Dir getDir() {
@@ -129,6 +136,10 @@ public class Tank {
             randomDir();
         }
         boundsCheck();
+
+        // update rectangle
+        rectangle.x = this.x;
+        rectangle.y = this.y;
 
     }
 

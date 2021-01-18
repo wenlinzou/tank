@@ -33,6 +33,8 @@ public class Bullet {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
+        tankFrame.bulletList.add(this);
     }
 
     public Group getGroup() {

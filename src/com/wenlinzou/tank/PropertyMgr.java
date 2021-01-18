@@ -10,6 +10,10 @@ import java.util.Properties;
  * @date 2021/1/13
  */
 public class PropertyMgr {
+    private PropertyMgr() {
+
+    }
+
     static Properties properties = new Properties();
 
     static {
@@ -37,6 +41,13 @@ public class PropertyMgr {
     }
 
     // getString
+    public static String getString(String key) {
+        Object obj = get(key);
+        if (null != obj) {
+            return (String) obj;
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         System.out.println(PropertyMgr.get("initTankCount"));

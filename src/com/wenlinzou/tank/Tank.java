@@ -1,6 +1,7 @@
 package com.wenlinzou.tank;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -10,22 +11,25 @@ import java.util.Random;
  * @date 2020/12/31
  */
 public class Tank {
-    private int x, y;
-    private Dir dir = Dir.DOWN;
-    private static final int SPEED = 1;
+
+    private static final int SPEED = 2;
 
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
-
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
     Rectangle rectangle = new Rectangle();
 
     private Random random = new Random();
 
+    int x, y;
+    Dir dir = Dir.DOWN;
+
     private boolean moving = true;
-    private TankFrame tankFrame;
+    TankFrame tankFrame;
     private boolean living = true;
-    private Group group = Group.BAD;
+    Group group = Group.BAD;
+
+    FireStrategy fireStrategy;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         super();
@@ -39,6 +43,17 @@ public class Tank {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
+        if (group == Group.GOOD) {
+            String goodFSName = PropertyMgr.getString("goodFS");
+            try {
+                fireStrategy = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            fireStrategy = new DefaultFireStrategy();
+        }
     }
 
     public Dir getDir() {
@@ -165,9 +180,7 @@ public class Tank {
 
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tankFrame.bulletList.add(new Bullet(bX, bY, this.dir, this.group, this.tankFrame));
+        fireStrategy.fire(this);
     }
 
     public void die() {

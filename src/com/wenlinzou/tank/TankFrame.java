@@ -23,7 +23,7 @@ public class TankFrame extends Frame {
     public List<BaseTank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
 
-    public GameFactory gameFactory = new RectFactory();
+    public GameFactory gameFactory = new DefaultFactory();
 
     public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 

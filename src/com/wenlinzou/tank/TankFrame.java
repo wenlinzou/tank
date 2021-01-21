@@ -1,5 +1,7 @@
 package com.wenlinzou.tank;
 
+import com.wenlinzou.tank.abstractfactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,11 +19,13 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 400, Dir.UP, Group.GOOD, this);
-    List<Bullet> bulletList = new ArrayList<>();
-    List<Tank> tanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    public List<BaseBullet> bulletList = new ArrayList<>();
+    public List<Tank> tanks = new ArrayList<>();
+    public List<BaseExplode> explodes = new ArrayList<>();
 
-    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+    public GameFactory gameFactory = new RectFactory();
+
+    public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);

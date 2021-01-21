@@ -1,7 +1,8 @@
 package com.wenlinzou.tank;
 
+import com.wenlinzou.tank.abstractfactory.BaseTank;
+
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -10,14 +11,14 @@ import java.util.Random;
  * @author wenlinzou
  * @date 2020/12/31
  */
-public class Tank {
+public class Tank extends BaseTank {
 
     private static final int SPEED = 2;
 
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
     private Random random = new Random();
 

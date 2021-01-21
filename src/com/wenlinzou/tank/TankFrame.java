@@ -20,7 +20,7 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 400, Dir.UP, Group.GOOD, this);
     public List<BaseBullet> bulletList = new ArrayList<>();
-    public List<Tank> tanks = new ArrayList<>();
+    public List<BaseTank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
 
     public GameFactory gameFactory = new RectFactory();

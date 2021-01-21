@@ -47,6 +47,7 @@ public class RectBullet extends BaseBullet {
         this.group = group;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
             tankFrame.bulletList.remove(this);
@@ -77,6 +78,7 @@ public class RectBullet extends BaseBullet {
 
     }
 
+
     private void move() {
         switch (dir) {
             case LEFT:
@@ -106,7 +108,8 @@ public class RectBullet extends BaseBullet {
 
     }
 
-    public void collideWith(Tank tank) {
+    @Override
+    public void collideWith(BaseTank tank) {
         if (this.group == tank.getGroup()) {
             return;
         }

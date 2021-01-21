@@ -1,6 +1,5 @@
 package com.wenlinzou.tank.abstractfactory;
 
-import com.wenlinzou.tank.Tank;
 
 import java.awt.*;
 
@@ -13,5 +12,5 @@ import java.awt.*;
 public abstract class BaseBullet {
     public abstract void paint(Graphics g);
 
-    public abstract void collideWith(Tank tank);
+    public abstract void collideWith(BaseTank tank);
 }

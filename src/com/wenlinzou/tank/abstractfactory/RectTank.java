@@ -1,6 +1,6 @@
-package com.wenlinzou.tank;
+package com.wenlinzou.tank.abstractfactory;
 
-import com.wenlinzou.tank.abstractfactory.BaseTank;
+import com.wenlinzou.tank.*;
 
 import java.awt.*;
 import java.util.Random;
@@ -11,13 +11,14 @@ import java.util.Random;
  * @author wenlinzou
  * @date 2020/12/31
  */
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank {
 
     private static final int SPEED = 2;
 
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
+    public Rectangle rectangle = new Rectangle();
 
     private Random random = new Random();
 
@@ -31,7 +32,7 @@ public class Tank extends BaseTank {
 
     FireStrategy fireStrategy;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         super();
         this.x = x;
         this.y = y;
@@ -88,6 +89,7 @@ public class Tank extends BaseTank {
         this.y = y;
     }
 
+    @Override
     public Group getGroup() {
         return group;
     }
@@ -96,28 +98,34 @@ public class Tank extends BaseTank {
         this.group = group;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
             tankFrame.tanks.remove(this);
         }
 
+//        switch (dir) {
+//            case LEFT:
+//                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
+//                break;
+//            case UP:
+//                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
+//                break;
+//            case RIGHT:
+//                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
+//                break;
+//            case DOWN:
+//                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
+//                break;
+//            default:
+//                break;
+//        }
 
-        switch (dir) {
-            case LEFT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
-                break;
-            default:
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(group == Group.GOOD ? Color.RED : Color.BLUE);
+        g.fillRect(x, y, 40, 40);
+        g.setColor(c);
+
         move();
 
     }
@@ -165,11 +173,11 @@ public class Tank extends BaseTank {
         if (this.y < 28) {
             y = 28;
         }
-        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
-            x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        if (this.x > TankFrame.GAME_WIDTH - RectTank.WIDTH - 2) {
+            x = TankFrame.GAME_WIDTH - RectTank.WIDTH - 2;
         }
-        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
-            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        if (this.y > TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2) {
+            y = TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2;
         }
 
     }
@@ -181,8 +189,8 @@ public class Tank extends BaseTank {
 
     public void fire() {
 //        fireStrategy.fire(this);
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        int bX = this.x + RectTank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bY = this.y + RectTank.HEIGHT / 2 - Bullet.HEIGHT / 2;
 
 
         Dir[] dirs = Dir.values();
@@ -197,6 +205,7 @@ public class Tank extends BaseTank {
         }
     }
 
+    @Override
     public void die() {
         this.living = false;
     }

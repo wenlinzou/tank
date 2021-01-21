@@ -1,6 +1,7 @@
 package com.wenlinzou.tank;
 
 import com.wenlinzou.tank.abstractfactory.BaseBullet;
+import com.wenlinzou.tank.abstractfactory.BaseTank;
 
 import java.awt.*;
 
@@ -47,6 +48,7 @@ public class Bullet extends BaseBullet {
         this.group = group;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
             tankFrame.bulletList.remove(this);
@@ -102,7 +104,8 @@ public class Bullet extends BaseBullet {
 
     }
 
-    public void collideWith(Tank tank) {
+    @Override
+    public void collideWith(BaseTank tank) {
         if (this.group == tank.getGroup()) {
             return;
         }

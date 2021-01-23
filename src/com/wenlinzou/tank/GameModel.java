@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * description：
+ * description：门面模式
  *
  * @author wenlinzou
  * @date 2021/1/23

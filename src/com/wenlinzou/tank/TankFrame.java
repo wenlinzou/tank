@@ -5,8 +5,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * description：
@@ -16,10 +14,8 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 400, Dir.UP, Group.GOOD, this);
-    List<Bullet> bulletList = new ArrayList<>();
-    List<Tank> tanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    GameModel gameModel = new GameModel();
+
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
@@ -57,37 +53,8 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量:" + bulletList.size(), 10, 60);
-        g.drawString("敌人的数量:" + tanks.size(), 10, 80);
-        g.drawString("爆炸的数量:" + explodes.size(), 10, 100);
-        g.setColor(c);
+        gameModel.paint(g);
 
-        myTank.paint(g);
-        for (int i = 0; i < bulletList.size(); i++) {
-            bulletList.get(i).paint(g);
-        }
-
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
-
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
-
-        // 碰撞检测
-        for (int i = 0; i < bulletList.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bulletList.get(i).collideWith(tanks.get(j));
-            }
-        }
-
-//        for (Iterator<Bullet> it= bulletList.iterator(); it.hasNext();) {
-//            Bullet bullet = it.next();
-//            if (!bullet.isLive()) it.remove();
-//        }
 
     }
 
@@ -117,7 +84,7 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            new Thread(()->new Audio("audio/tank_move.wav").play()).start();
+            new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
 
             setMainTankDir();
         }
@@ -140,7 +107,7 @@ public class TankFrame extends Frame {
                     break;
 
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    gameModel.getMainTank().fire();
                     break;
 
                 default:
@@ -150,6 +117,8 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
+            Tank myTank = gameModel.getMainTank();
+
             if (!bL && !bU && !bR && !bD) {
                 myTank.setMoving(false);
             } else {

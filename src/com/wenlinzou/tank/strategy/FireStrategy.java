@@ -1,4 +1,6 @@
-package com.wenlinzou.tank;
+package com.wenlinzou.tank.strategy;
+
+import com.wenlinzou.tank.Tank;
 
 /**
  * description：

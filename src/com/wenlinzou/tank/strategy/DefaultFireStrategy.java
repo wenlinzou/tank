@@ -1,4 +1,10 @@
-package com.wenlinzou.tank;
+package com.wenlinzou.tank.strategy;
+
+import com.wenlinzou.tank.Audio;
+import com.wenlinzou.tank.Bullet;
+import com.wenlinzou.tank.Group;
+import com.wenlinzou.tank.Tank;
+import com.wenlinzou.tank.strategy.FireStrategy;
 
 /**
  * description：

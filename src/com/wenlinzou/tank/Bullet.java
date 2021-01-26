@@ -8,12 +8,12 @@ import java.awt.*;
  * @author wenlinzou
  * @date 2020/12/31
  */
-public class Bullet {
+public class Bullet extends GameObject {
     private static final int SPEED = 10;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-    Rectangle rectangle = new Rectangle();
+    private Rectangle rectangle = new Rectangle();
 
     private int x, y;
     private Dir dir;
@@ -34,7 +34,15 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.bulletList.add(this);
+        gameModel.add(this);
+    }
+
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
     public Group getGroup() {
@@ -45,9 +53,10 @@ public class Bullet {
         this.group = group;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            gameModel.bulletList.remove(this);
+            gameModel.remove(this);
         }
 
         switch (dir) {
@@ -105,18 +114,18 @@ public class Bullet {
             return;
         }
 
-        if (rectangle.intersects(tank.rectangle)) {
+        if (rectangle.intersects(tank.getRectangle())) {
             tank.die();
             this.die();
 
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gameModel.explodes.add(new Explode(eX, eY, gameModel));
+            gameModel.add(new Explode(eX, eY, gameModel));
         }
 
     }
 
-    private void die() {
+    public void die() {
         this.living = false;
     }
 }

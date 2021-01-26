@@ -5,5 +5,7 @@ bulletSpeed=10
 gameWidth=1080
 gameHeight=720
 #fireStrategy
-goodFS=com.wenlinzou.tank.FourDirFireStrategy
-badFS=com.wenlinzou.tank.DefaultFireStrategy
+goodFS=com.wenlinzou.tank.strategy.FourDirFireStrategy
+badFS=com.wenlinzou.tank.strategy.DefaultFireStrategy
+#colliders
+colliders=com.wenlinzou.tank.cor.BulletTankCollier,com.wenlinzou.tank.cor.TankTankCollier

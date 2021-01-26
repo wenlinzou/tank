@@ -13,7 +13,7 @@ public class Main {
 
 
         new Thread(() -> {
-            new Audio("audio/war1.wav").loop();
+//            new Audio("audio/war1.wav").loop();
         }).start();
 
         while (true) {

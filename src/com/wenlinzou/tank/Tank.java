@@ -1,7 +1,9 @@
 package com.wenlinzou.tank;
 
+import com.wenlinzou.tank.strategy.DefaultFireStrategy;
+import com.wenlinzou.tank.strategy.FireStrategy;
+
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -10,27 +12,27 @@ import java.util.Random;
  * @author wenlinzou
  * @date 2020/12/31
  */
-public class Tank {
+public class Tank extends GameObject {
 
     private static final int SPEED = 2;
 
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
-    Rectangle rectangle = new Rectangle();
+    private Rectangle rectangle = new Rectangle();
 
     private Random random = new Random();
 
-    int x, y;
-    Dir dir = Dir.DOWN;
+    public int x, y;
+    public Dir dir = Dir.DOWN;
 
     private boolean moving = true;
 
     private boolean living = true;
-    Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     FireStrategy fireStrategy;
-    GameModel gameModel;
+    public GameModel gameModel;
 
     public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         super();
@@ -55,6 +57,10 @@ public class Tank {
         } else {
             fireStrategy = new DefaultFireStrategy();
         }
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
     public Dir getDir() {
@@ -97,9 +103,10 @@ public class Tank {
         this.group = group;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            gameModel.tanks.remove(this);
+            gameModel.remove(this);
         }
 
 
@@ -186,5 +193,9 @@ public class Tank {
 
     public void die() {
         this.living = false;
+    }
+
+    public void stop() {
+        moving = false;
     }
 }

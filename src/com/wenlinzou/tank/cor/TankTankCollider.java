@@ -20,12 +20,11 @@ public class TankTankCollider implements Collider {
         return true;
     }
 
-    private boolean collideWith(Tank tank1, Tank tank2) {
+    private void collideWith(Tank tank1, Tank tank2) {
 
         if (tank1.getRectangle().intersects(tank2.getRectangle())) {
-            tank1.stop();
-            return true;
+            tank1.back();
+            tank2.back();
         }
-        return false;
     }
 }

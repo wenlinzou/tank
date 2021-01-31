@@ -19,27 +19,23 @@ public class Bullet extends GameObject {
     private Dir dir;
 
     private boolean living = true;
-    private GameModel gameModel;
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.add(this);
+        GameModel.getInstance().add(this);
     }
 
-    public GameModel getGameModel() {
-        return gameModel;
-    }
+
 
     public Rectangle getRectangle() {
         return rectangle;
@@ -56,7 +52,7 @@ public class Bullet extends GameObject {
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         switch (dir) {
@@ -109,21 +105,6 @@ public class Bullet extends GameObject {
 
     }
 
-    public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) {
-            return;
-        }
-
-        if (rectangle.intersects(tank.getRectangle())) {
-            tank.die();
-            this.die();
-
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gameModel.add(new Explode(eX, eY, gameModel));
-        }
-
-    }
 
     public void die() {
         this.living = false;

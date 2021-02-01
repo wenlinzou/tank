@@ -1,9 +1,8 @@
 package com.wenlinzou.tank.strategy;
 
-import com.wenlinzou.tank.Audio;
-import com.wenlinzou.tank.Bullet;
-import com.wenlinzou.tank.Group;
-import com.wenlinzou.tank.Tank;
+import com.wenlinzou.tank.*;
+import com.wenlinzou.tank.decorator.RectDecorator;
+import com.wenlinzou.tank.decorator.TailDecorator;
 
 /**
  * description：
@@ -17,7 +16,12 @@ public class DefaultFireStrategy implements FireStrategy {
         int bX = tank.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = tank.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
 
-        new Bullet(bX, bY, tank.dir, tank.group);
+//        GameModel.getInstance().add(
+//                new RectDecorator(
+//                        new TailDecorator(
+//                        new Bullet(bX, bY, tank.dir, tank.group))));
+
+        new Bullet(bX,bY,tank.dir,tank.group);
 
         if (tank.group == Group.GOOD) {
             new Thread(() -> {

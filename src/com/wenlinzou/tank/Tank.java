@@ -1,9 +1,14 @@
 package com.wenlinzou.tank;
 
+import com.wenlinzou.tank.observer.TankFireEvent;
+import com.wenlinzou.tank.observer.TankFireHandler;
+import com.wenlinzou.tank.observer.TankFireObserver;
 import com.wenlinzou.tank.strategy.DefaultFireStrategy;
 import com.wenlinzou.tank.strategy.FireStrategy;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -208,6 +213,15 @@ public class Tank extends GameObject {
 
     public void fire() {
         fireStrategy.fire(this);
+    }
+
+    private List<TankFireObserver> fireObserverList = Arrays.asList(new TankFireHandler());
+
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver observer : fireObserverList) {
+            observer.actionOnFire(event);
+        }
     }
 
     public void die() {

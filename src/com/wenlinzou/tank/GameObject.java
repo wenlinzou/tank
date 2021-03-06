@@ -1,6 +1,7 @@
 package com.wenlinzou.tank;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * description：
@@ -8,7 +9,7 @@ import java.awt.*;
  * @author wenlinzou
  * @date 2021/1/23
  */
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
     public int x, y;
 
     public abstract void paint(Graphics g);

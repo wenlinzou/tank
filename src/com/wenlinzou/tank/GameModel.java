@@ -3,6 +3,7 @@ package com.wenlinzou.tank;
 import com.wenlinzou.tank.cor.ColliderChain;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class GameModel {
 
     Tank myTank;
 
-//    List<Bullet> bulletList = new ArrayList<>();
+    //    List<Bullet> bulletList = new ArrayList<>();
 //    List<Tank> tanks = new ArrayList<>();
 //    List<Explode> explodes = new ArrayList<>();
     ColliderChain chain = new ColliderChain();
@@ -98,5 +99,43 @@ public class GameModel {
         return myTank;
     }
 
+    public void save() {
+        File file = new File("/Users/liumengqi/Desktop/tank.data");
+        ObjectOutputStream objectOutputStream = null;
+        try {
+            objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+            objectOutputStream.writeObject(myTank);
+            objectOutputStream.writeObject(objects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != objectOutputStream) {
+                try {
+                    objectOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
+    public void load() {
+        File file = new File("/Users/liumengqi/Desktop/tank.data");
+        ObjectInputStream objectInputStream = null;
+        try {
+            objectInputStream = new ObjectInputStream(new FileInputStream(file));
+            myTank = (Tank) objectInputStream.readObject();
+            objects = (List) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != objectInputStream) {
+                try {
+                    objectInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
